@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmployeeService } from '../employee.service';
 import { Employee } from '../employee';
+import { EmployeeService } from '../employee.service';
 import { catchError, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-employee-details',
-  templateUrl: './employee-details.component.html',
-  styleUrls: ['./employee-details.component.css'],
+  selector: 'app-update-employee',
+  templateUrl: './update-employee.component.html',
+  styleUrls: ['./update-employee.component.css'],
 })
-export class EmployeeDetailsComponent {
+export class UpdateEmployeeComponent {
   id!: number;
   employee!: Employee;
 
@@ -39,8 +39,29 @@ export class EmployeeDetailsComponent {
       .subscribe();
   }
 
-  list() {
-    this.router.navigate(['employees']);
+  updateEmployee() {
+    this.employeeService
+      .updateEmployee(this.id, this.employee)
+      .pipe(
+        tap((data) => {
+          console.log(data);
+          this.employee = new Employee();
+          this.gotoList();
+        }),
+        catchError((error) => {
+          console.log(error);
+          return observableThrowError(error); // Rethrow the error or handle it as needed
+        })
+      )
+      .subscribe();
+  }
+
+  onSubmit() {
+    this.updateEmployee();
+  }
+
+  gotoList() {
+    this.router.navigate(['/employees']);
   }
 }
 function observableThrowError(error: any): any {
