@@ -15,3 +15,23 @@ You will develop your first FULL STACK application with Angular and Spring Boot.
 ### Project structure
 
 ![alt text](images/project_structure.png)
+
+## Part 2 : Angular initialisation
+
+### Install bootstrap and jquery
+
+`npm install bootstrap jquery --save`
+
+### Create components and service
+
+`ng g s employee`
+
+`ng g c create-employee`
+
+`ng g c employee-details`
+
+`ng g c employee-list`
+
+## Part 3 : Angular Finish
+
+![alt text](images/angularArchi1.png)
